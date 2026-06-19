@@ -88,18 +88,15 @@ function makeCert() {
     bgImg.onload = function() {
         ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
         
-        // 主标题
         ctx.font = 'bold 52px "Microsoft YaHei", "PingFang SC", sans-serif';
         ctx.fillStyle = '#8B0000';
         ctx.textAlign = 'center';
         ctx.fillText('企业安全生产与环境保护合规测评', canvas.width / 2, 180);
         
-        // 副标题/证书字样
         ctx.font = 'bold 40px "Microsoft YaHei", sans-serif';
         ctx.fillStyle = '#333';
         ctx.fillText('完 成 证 书', canvas.width / 2, 240);
         
-        // 装饰线
         ctx.strokeStyle = '#8B0000';
         ctx.lineWidth = 2;
         ctx.beginPath();
@@ -107,22 +104,18 @@ function makeCert() {
         ctx.lineTo(800, 270);
         ctx.stroke();
         
-        // 正文前缀
         ctx.font = '32px "Microsoft YaHei", sans-serif';
         ctx.fillStyle = '#333';
         ctx.fillText('兹证明', canvas.width / 2, 340);
         
-        // 公司名称（核心，大字）
         ctx.font = 'bold 72px "Microsoft YaHei", "PingFang SC", sans-serif';
         ctx.fillStyle = '#1e3c72';
         ctx.fillText(name, canvas.width / 2, 440);
         
-        // 正文后缀
         ctx.font = '32px "Microsoft YaHei", sans-serif';
         ctx.fillStyle = '#333';
         ctx.fillText('已完成企业安全生产与环境保护合规测评。', canvas.width / 2, 540);
         
-        // 日期
         const today = new Date();
         const dateStr = today.getFullYear() + '年' + (today.getMonth()+1) + '月' + today.getDate() + '日';
         ctx.font = '26px "Microsoft YaHei", sans-serif';
@@ -130,37 +123,20 @@ function makeCert() {
         ctx.textAlign = 'right';
         ctx.fillText(dateStr, 900, 640);
         
-        // 落款单位
         ctx.font = '28px "Microsoft YaHei", sans-serif';
         ctx.fillStyle = '#333';
         ctx.fillText('荆州市企业合规研究中心', 900, 690);
         ctx.fillText('荆州市秉智合规公司', 900, 730);
-        
-        // 印章位置示意（红色圆）
-        ctx.beginPath();
-        ctx.arc(320, 680, 60, 0, 2 * Math.PI);
-        ctx.strokeStyle = '#c41e3a';
-        ctx.lineWidth = 4;
-        ctx.stroke();
-        ctx.font = 'bold 24px "Microsoft YaHei", sans-serif';
-        ctx.fillStyle = '#c41e3a';
-        ctx.textAlign = 'center';
-        ctx.fillText('合规测评', 320, 675);
-        ctx.font = '18px "Microsoft YaHei", sans-serif';
-        ctx.fillText('专用章', 320, 705);
         
         document.getElementById('certImg').src = canvas.toDataURL('image/png');
         document.getElementById('loading').style.display = 'none';
         document.getElementById('result').style.display = 'block';
     };
     
-    // 默认模板（无背景图时）
     bgImg.onerror = function() {
-        // 背景
         ctx.fillStyle = '#faf8f3';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-        // 外边框（深红色双边框）
         ctx.strokeStyle = '#8B0000';
         ctx.lineWidth = 12;
         ctx.strokeRect(25, 25, 1150, 798);
@@ -168,7 +144,6 @@ function makeCert() {
         ctx.lineWidth = 3;
         ctx.strokeRect(40, 40, 1120, 768);
         
-        // 顶部标题
         ctx.font = 'bold 52px "Microsoft YaHei", "PingFang SC", sans-serif';
         ctx.fillStyle = '#8B0000';
         ctx.textAlign = 'center';
@@ -178,7 +153,6 @@ function makeCert() {
         ctx.fillStyle = '#333';
         ctx.fillText('完 成 证 书', canvas.width / 2, 220);
         
-        // 装饰线
         ctx.strokeStyle = '#8B0000';
         ctx.lineWidth = 2;
         ctx.beginPath();
@@ -186,12 +160,10 @@ function makeCert() {
         ctx.lineTo(800, 250);
         ctx.stroke();
         
-        // 正文
         ctx.font = '32px "Microsoft YaHei", sans-serif';
         ctx.fillStyle = '#333';
         ctx.fillText('兹证明', canvas.width / 2, 330);
         
-        // 公司名称（加粗，蓝色）
         ctx.font = 'bold 72px "Microsoft YaHei", "PingFang SC", sans-serif';
         ctx.fillStyle = '#1e3c72';
         ctx.fillText(name, canvas.width / 2, 430);
@@ -200,7 +172,6 @@ function makeCert() {
         ctx.fillStyle = '#333';
         ctx.fillText('已完成企业安全生产与环境保护合规测评。', canvas.width / 2, 530);
         
-        // 日期（右对齐）
         const today = new Date();
         const dateStr = today.getFullYear() + '年' + (today.getMonth()+1) + '月' + today.getDate() + '日';
         ctx.font = '26px "Microsoft YaHei", sans-serif';
@@ -208,24 +179,10 @@ function makeCert() {
         ctx.textAlign = 'right';
         ctx.fillText(dateStr, 950, 640);
         
-        // 落款单位（右对齐）
         ctx.font = '28px "Microsoft YaHei", sans-serif';
         ctx.fillStyle = '#333';
         ctx.fillText('荆州市企业合规研究中心', 950, 690);
         ctx.fillText('荆州市秉智合规公司', 950, 730);
-        
-        // 印章示意
-        ctx.beginPath();
-        ctx.arc(280, 680, 60, 0, 2 * Math.PI);
-        ctx.strokeStyle = '#c41e3a';
-        ctx.lineWidth = 4;
-        ctx.stroke();
-        ctx.font = 'bold 24px "Microsoft YaHei", sans-serif';
-        ctx.fillStyle = '#c41e3a';
-        ctx.textAlign = 'center';
-        ctx.fillText('合规测评', 280, 675);
-        ctx.font = '18px "Microsoft YaHei", sans-serif';
-        ctx.fillText('专用章', 280, 705);
         
         document.getElementById('certImg').src = canvas.toDataURL('image/png');
         document.getElementById('loading').style.display = 'none';
