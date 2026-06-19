@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>电子证书领取</title>
+    <title>合规测评证书领取</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh; 
             display: flex; 
             justify-content: center; 
@@ -24,7 +24,7 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             text-align: center;
         }
-        h2 { color: #333; margin-bottom: 10px; font-size: 24px; }
+        h2 { color: #1e3c72; margin-bottom: 10px; font-size: 24px; }
         p.sub { color: #666; margin-bottom: 25px; font-size: 14px; }
         input {
             width: 100%;
@@ -37,11 +37,11 @@
             outline: none;
             transition: border-color 0.3s;
         }
-        input:focus { border-color: #667eea; }
+        input:focus { border-color: #1e3c72; }
         button {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
             border: none;
             border-radius: 12px;
@@ -58,68 +58,180 @@
             border: 1px solid #eee;
         }
         .tip { margin-top: 15px; color: #888; font-size: 13px; line-height: 1.6; }
-        .loading { display: none; color: #667eea; margin-top: 15px; font-size: 14px; }
+        .loading { display: none; color: #1e3c72; margin-top: 15px; font-size: 14px; }
     </style>
 </head>
 <body>
     <div class="card">
-        <h2>电子证书领取</h2>
-        <p class="sub">请输入您在问卷中填写的姓名</p>
-        <input type="text" id="userName" placeholder="请输入姓名" maxlength="12" autocomplete="off">
-        <button onclick="makeCert()">生成我的证书</button>
+        <h2>合规测评证书领取</h2>
+        <p class="sub">请输入贵公司名称</p>
+        <input type="text" id="userName" placeholder="请输入贵公司名称" maxlength="30" autocomplete="off">
+        <button onclick="makeCert()">生成证书</button>
         <div class="loading" id="loading">正在生成证书，请稍候...</div>
         <div class="result" id="result">
             <canvas id="certCanvas" style="display:none;"></canvas>
-            <img id="certImg" alt="电子证书">
+            <img id="certImg" alt="合规测评证书">
             <div class="tip">长按上方图片保存到相册<br>或点击右上角“···”分享给好友</div>
         </div>
     </div>
 <script>
 function makeCert() {
     const name = document.getElementById('userName').value.trim();
-    if (!name) { alert('请输入姓名'); return; }
+    if (!name) { alert('请输入公司名称'); return; }
     document.getElementById('loading').style.display = 'block';
     document.getElementById('result').style.display = 'none';
     const canvas = document.getElementById('certCanvas');
     const ctx = canvas.getContext('2d');
     const bgImg = new Image();
     canvas.width = 1200; canvas.height = 848;
+    
     bgImg.onload = function() {
         ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
-        ctx.font = 'bold 80px "Microsoft YaHei", "PingFang SC", sans-serif';
-        ctx.fillStyle = '#2c3e50';
-        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ctx.fillText(name, canvas.width / 2, 420);
+        
+        // 主标题
+        ctx.font = 'bold 52px "Microsoft YaHei", "PingFang SC", sans-serif';
+        ctx.fillStyle = '#8B0000';
+        ctx.textAlign = 'center';
+        ctx.fillText('企业安全生产与环境保护合规测评', canvas.width / 2, 180);
+        
+        // 副标题/证书字样
+        ctx.font = 'bold 40px "Microsoft YaHei", sans-serif';
+        ctx.fillStyle = '#333';
+        ctx.fillText('完 成 证 书', canvas.width / 2, 240);
+        
+        // 装饰线
+        ctx.strokeStyle = '#8B0000';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(400, 270);
+        ctx.lineTo(800, 270);
+        ctx.stroke();
+        
+        // 正文前缀
+        ctx.font = '32px "Microsoft YaHei", sans-serif';
+        ctx.fillStyle = '#333';
+        ctx.fillText('兹证明', canvas.width / 2, 340);
+        
+        // 公司名称（核心，大字）
+        ctx.font = 'bold 72px "Microsoft YaHei", "PingFang SC", sans-serif';
+        ctx.fillStyle = '#1e3c72';
+        ctx.fillText(name, canvas.width / 2, 440);
+        
+        // 正文后缀
+        ctx.font = '32px "Microsoft YaHei", sans-serif';
+        ctx.fillStyle = '#333';
+        ctx.fillText('已完成企业安全生产与环境保护合规测评。', canvas.width / 2, 540);
+        
+        // 日期
         const today = new Date();
         const dateStr = today.getFullYear() + '年' + (today.getMonth()+1) + '月' + today.getDate() + '日';
-        ctx.font = '28px "Microsoft YaHei", sans-serif';
+        ctx.font = '26px "Microsoft YaHei", sans-serif';
         ctx.fillStyle = '#555';
-        ctx.fillText(dateStr, canvas.width / 2, 620);
+        ctx.textAlign = 'right';
+        ctx.fillText(dateStr, 900, 640);
+        
+        // 落款单位
+        ctx.font = '28px "Microsoft YaHei", sans-serif';
+        ctx.fillStyle = '#333';
+        ctx.fillText('荆州市企业合规研究中心', 900, 690);
+        ctx.fillText('荆州市秉智合规公司', 900, 730);
+        
+        // 印章位置示意（红色圆）
+        ctx.beginPath();
+        ctx.arc(320, 680, 60, 0, 2 * Math.PI);
+        ctx.strokeStyle = '#c41e3a';
+        ctx.lineWidth = 4;
+        ctx.stroke();
+        ctx.font = 'bold 24px "Microsoft YaHei", sans-serif';
+        ctx.fillStyle = '#c41e3a';
+        ctx.textAlign = 'center';
+        ctx.fillText('合规测评', 320, 675);
+        ctx.font = '18px "Microsoft YaHei", sans-serif';
+        ctx.fillText('专用章', 320, 705);
+        
         document.getElementById('certImg').src = canvas.toDataURL('image/png');
         document.getElementById('loading').style.display = 'none';
         document.getElementById('result').style.display = 'block';
     };
+    
+    // 默认模板（无背景图时）
     bgImg.onerror = function() {
-        ctx.fillStyle = '#f8f6f1'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.strokeStyle = '#c9a227'; ctx.lineWidth = 16;
-        ctx.strokeRect(30, 30, 1140, 788);
-        ctx.font = 'bold 72px "Microsoft YaHei", sans-serif';
-        ctx.fillStyle = '#c9a227'; ctx.textAlign = 'center';
-        ctx.fillText('结 业 证 书', canvas.width / 2, 200);
-        ctx.font = '40px "Microsoft YaHei", sans-serif'; ctx.fillStyle = '#333';
-        ctx.fillText('兹证明', canvas.width / 2, 320);
-        ctx.font = 'bold 90px "Microsoft YaHei", sans-serif'; ctx.fillStyle = '#c9a227';
-        ctx.fillText(name, canvas.width / 2, 460);
-        ctx.font = '36px "Microsoft YaHei", sans-serif'; ctx.fillStyle = '#333';
-        ctx.fillText('已完成本次学习，成绩合格，特发此证。', canvas.width / 2, 580);
+        // 背景
+        ctx.fillStyle = '#faf8f3';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // 外边框（深红色双边框）
+        ctx.strokeStyle = '#8B0000';
+        ctx.lineWidth = 12;
+        ctx.strokeRect(25, 25, 1150, 798);
+        ctx.strokeStyle = '#c9a227';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(40, 40, 1120, 768);
+        
+        // 顶部标题
+        ctx.font = 'bold 52px "Microsoft YaHei", "PingFang SC", sans-serif';
+        ctx.fillStyle = '#8B0000';
+        ctx.textAlign = 'center';
+        ctx.fillText('企业安全生产与环境保护合规测评', canvas.width / 2, 160);
+        
+        ctx.font = 'bold 40px "Microsoft YaHei", sans-serif';
+        ctx.fillStyle = '#333';
+        ctx.fillText('完 成 证 书', canvas.width / 2, 220);
+        
+        // 装饰线
+        ctx.strokeStyle = '#8B0000';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(400, 250);
+        ctx.lineTo(800, 250);
+        ctx.stroke();
+        
+        // 正文
+        ctx.font = '32px "Microsoft YaHei", sans-serif';
+        ctx.fillStyle = '#333';
+        ctx.fillText('兹证明', canvas.width / 2, 330);
+        
+        // 公司名称（加粗，蓝色）
+        ctx.font = 'bold 72px "Microsoft YaHei", "PingFang SC", sans-serif';
+        ctx.fillStyle = '#1e3c72';
+        ctx.fillText(name, canvas.width / 2, 430);
+        
+        ctx.font = '32px "Microsoft YaHei", sans-serif';
+        ctx.fillStyle = '#333';
+        ctx.fillText('已完成企业安全生产与环境保护合规测评。', canvas.width / 2, 530);
+        
+        // 日期（右对齐）
         const today = new Date();
         const dateStr = today.getFullYear() + '年' + (today.getMonth()+1) + '月' + today.getDate() + '日';
-        ctx.font = '30px "Microsoft YaHei", sans-serif'; ctx.fillStyle = '#666';
-        ctx.fillText(dateStr, canvas.width / 2, 720);
+        ctx.font = '26px "Microsoft YaHei", sans-serif';
+        ctx.fillStyle = '#555';
+        ctx.textAlign = 'right';
+        ctx.fillText(dateStr, 950, 640);
+        
+        // 落款单位（右对齐）
+        ctx.font = '28px "Microsoft YaHei", sans-serif';
+        ctx.fillStyle = '#333';
+        ctx.fillText('荆州市企业合规研究中心', 950, 690);
+        ctx.fillText('荆州市秉智合规公司', 950, 730);
+        
+        // 印章示意
+        ctx.beginPath();
+        ctx.arc(280, 680, 60, 0, 2 * Math.PI);
+        ctx.strokeStyle = '#c41e3a';
+        ctx.lineWidth = 4;
+        ctx.stroke();
+        ctx.font = 'bold 24px "Microsoft YaHei", sans-serif';
+        ctx.fillStyle = '#c41e3a';
+        ctx.textAlign = 'center';
+        ctx.fillText('合规测评', 280, 675);
+        ctx.font = '18px "Microsoft YaHei", sans-serif';
+        ctx.fillText('专用章', 280, 705);
+        
         document.getElementById('certImg').src = canvas.toDataURL('image/png');
         document.getElementById('loading').style.display = 'none';
         document.getElementById('result').style.display = 'block';
     };
+    
     bgImg.src = 'bg.jpg';
 }
 </script>
